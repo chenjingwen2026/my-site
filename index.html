@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Air Defense Missile Deployment System</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: #0a0a0f;
+            font-family: "Microsoft YaHei", "PingFang SC", Arial, sans-serif;
+            color: #ccc;
+            min-height: 100vh;
+        }
+
+        .header {
+            background: #1a0000;
+            text-align: center;
+            padding: 60px 20px 40px;
+            border-bottom: 3px solid #cc2222;
+        }
+
+        .header h1 {
+            font-size: 44px;
+            font-weight: 900;
+            color: #ff2222;
+            letter-spacing: 4px;
+            text-shadow: 0 0 40px rgba(255, 0, 0, 0.25);
+        }
+
+        .header p {
+            color: #ff6666;
+            font-size: 18px;
+            margin-top: 12px;
+            letter-spacing: 2px;
+        }
+
+        .header .version {
+            display: inline-block;
+            margin-top: 16px;
+            padding: 4px 24px;
+            border: 1px solid #ff4444;
+            color: #ff4444;
+            font-size: 13px;
+            border-radius: 20px;
+            background: rgba(255, 68, 68, 0.08);
+        }
+
+        .nav {
+            display: flex;
+            justify-content: center;
+            gap: 32px;
+            padding: 14px 20px;
+            background: #111118;
+            border-bottom: 1px solid #1a1a2e;
+            flex-wrap: wrap;
+        }
+
+        .nav a {
+            color: #888;
+            text-decoration: none;
+            font-size: 15px;
+            padding: 4px 0;
+            border-bottom: 2px solid transparent;
+            transition: 0.3s;
+        }
+
+        .nav a:hover {
+            color: #ff4444;
+            border-bottom-color: #ff4444;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        .card {
+            background: #11111e;
+            border-radius: 12px;
+            padding: 32px 36px;
+            margin-bottom: 32px;
+            border-left: 4px solid #cc2222;
+        }
+
+        .card h2 {
+            font-size: 22px;
+            color: #ff4444;
+            margin-bottom: 10px;
+        }
+
+        .card p {
+            color: #aaa;
+            line-height: 1.8;
+            font-size: 15px;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+            gap: 16px;
+            margin-bottom: 32px;
+        }
+
+        .grid-item {
+            background: #141421;
+            padding: 20px 16px;
+            border-radius: 10px;
+            text-align: center;
+            border: 1px solid #1e1e32;
+            transition: 0.2s;
+        }
+
+        .grid-item:hover {
+            border-color: #ff4444;
+            transform: translateY(-3px);
+        }
+
+        .grid-item .icon {
+            font-size: 32px;
+            margin-bottom: 6px;
+        }
+
+        .grid-item h4 {
+            color: #eee;
+            font-size: 15px;
+            margin-bottom: 4px;
+        }
+
+        .grid-item p {
+            color: #666;
+            font-size: 13px;
+        }
+
+        .disclaimer {
+            background: #0c0c18;
+            border-radius: 10px;
+            padding: 28px 32px;
+            border: 1px solid #1a1a2e;
+            margin-bottom: 32px;
+        }
+
+        .disclaimer h2 {
+            color: #ffaa44;
+            font-size: 20px;
+            margin-bottom: 14px;
+        }
+
+        .disclaimer ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .disclaimer ul li {
+            color: #888;
+            padding: 5px 0;
+            padding-left: 22px;
+            position: relative;
+            font-size: 14px;
+            line-height: 1.6;
+        }
+
+        .disclaimer ul li::before {
+            content: "›";
+            position: absolute;
+            left: 2px;
+            color: #ff6666;
+            font-weight: bold;
+        }
+
+        .download-area {
+            text-align: center;
+            padding: 10px 0 20px;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 18px 52px;
+            background: #cc2222;
+            color: #fff;
+            font-size: 20px;
+            font-weight: bold;
+            border-radius: 8px;
+            text-decoration: none;
+            transition: 0.3s;
+            border: none;
+            cursor: pointer;
+        }
+
+        .btn:hover {
+            background: #ff3333;
+            transform: scale(1.03);
+        }
+
+        .btn .sub {
+            display: block;
+            font-size: 12px;
+            font-weight: normal;
+            color: #ffaaaa;
+            margin-top: 4px;
+        }
+
+        .download-note {
+            color: #555;
+            font-size: 13px;
+            margin-top: 14px;
+        }
+
+        .download-note strong {
+            color: #888;
+        }
+
+        .footer {
+            text-align: center;
+            padding: 30px 20px;
+            border-top: 1px solid #1a1a2e;
+            color: #444;
+            font-size: 13px;
+            margin-top: 10px;
+        }
+
+        .footer a {
+            color: #666;
+            text-decoration: none;
+        }
+
+        .footer a:hover {
+            color: #ff6666;
+        }
+
+        @media (max-width: 640px) {
+            .header h1 {
+                font-size: 28px;
+            }
+            .card {
+                padding: 22px 18px;
+            }
+            .disclaimer {
+                padding: 18px 16px;
+            }
+            .btn {
+                padding: 14px 28px;
+                font-size: 17px;
+                width: 100%;
+            }
+            .grid {
+                grid-template-columns: 1fr 1fr;
+            }
+            .nav {
+                gap: 16px;
+                font-size: 13px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <header class="header">
+        <h1>⚠️ AIR DEFENSE</h1>
+        <h1 style="font-size: 32px; margin-top: -8px;">MISSILE DEPLOYMENT SYSTEM</h1>
+        <p>🛡️ 防空导弹部署系统 · 模拟演示</p>
+        <div class="version">Version 3.519</div>
+    </header>
+
+    <nav class="nav">
+        <a href="#">首页</a>
+        <a href="#features">功能</a>
+        <a href="#disclaimer">免责声明</a>
+        <a href="#download">下载</a>
+    </nav>
+
+    <div class="container">
+
+        <div class="card">
+            <h2>🚀 项目简介</h2>
+            <p>
+                <strong>Air Defense Missile Deployment System</strong> 是一款基于 Python 的模拟程序，
+                演示从核打击警报、导弹部署到目标拦截的全流程。
+                本程序仅供<strong>编程学习与娱乐</strong>，不涉及任何真实军事系统。
+            </p>
+        </div>
+
+        <h2 id="features" style="color: #eee; font-size: 20px; margin-bottom: 14px;">⚡ 核心功能</h2>
+        <div class="grid">
+            <div class="grid-item">
+                <div class="icon">🔴</div>
+                <h4>核打击警报</h4>
+                <p>全屏红窗 + 防空警报</p>
+            </div>
+            <div class="grid-item">
+                <div class="icon">🔐</div>
+                <h4>密码验证</h4>
+                <p>18 位授权码进入</p>
+            </div>
+            <div class="grid-item">
+                <div class="icon">⏱️</div>
+                <h4>部署倒计时</h4>
+                <p>30 秒发射倒计时</p>
+            </div>
+            <div class="grid-item">
+                <div class="icon">💀</div>
+                <h4>目标拦截蓝屏</h4>
+                <p>导弹追踪数据模拟</p>
+            </div>
+        </div>
+
+        <div id="disclaimer" class="disclaimer">
+            <h2>⚠️ 免责声明</h2>
+            <ul>
+                <li>本程序仅为个人学习、编程练习和娱乐目的而开发。</li>
+                <li>不涉及任何真实的军事、武器、导弹或国防系统。</li>
+                <li>所有界面、文字、音效、数据均为虚构。</li>
+                <li>本程序不收集、不存储、不上传任何用户信息。</li>
+                <li>本程序不会对计算机系统造成任何破坏或伤害。</li>
+                <li>使用者自行承担使用本程序的一切风险。</li>
+                <li>未经作者许可，不得用于任何商业目的。</li>
+                <li>使用本程序即表示您已阅读并同意以上条款。</li>
+            </ul>
+            <p style="color: #555; font-size: 13px; margin-top: 18px; text-align: center;">
+                © 2026 Air Defense System · 仅供学习研究使用
+            </p>
+        </div>
+
+        <div id="download" class="download-area">
+            <a href="发布包.zip" download="发布包.zip" class="btn">
+                ⬇️ 下载程序 + 音乐
+                <span class="sub">包含 .exe 和 y760.wav</span>
+            </a>
+            <p class="download-note">
+                💡 下载后解压，双击 <strong>AirDefenseSystem.exe</strong> 即可运行<br>
+                无需安装 Python
+            </p>
+        </div>
+
+    </div>
+
+    <footer class="footer">
+        <p>
+            Air Defense Missile Deployment System &nbsp;·&nbsp; Version 3.519
+        </p>
+        <p style="margin-top: 4px; color: #333;">
+            ⚠️ 本程序仅供学习研究，请勿用于非法用途。
+        </p>
+    </footer>
+
+</body>
+</html>
